@@ -24,5 +24,5 @@ Key references:
 - *P0 Dual Acq Shock Halo v2.MPC*
 
 Key references:
-- https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111699 (first publication)
+- https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111699
 - https://www.nature.com/articles/s41386-021-01176-2
