@@ -1,0 +1,108 @@
+Subject
+Subject
+StartDate
+!StartDate
+StartTime
+!StartTime
+Experiment
+Experiment
+Group
+Group
+Box
+Box
+Program
+MSN
+First Lever (Left1, Right2)
+Z(2)
+Pun Lever (Left1, Right2)
+Z(3)
+Shock Ratio
+Z(6)
+Halo Ratio
+Z(8)
+Punished Lever
+A(0)
+Unpunished Lever
+A(1)
+Pun Mag Entries
+A(3)
+Unp Mag Entries
+A(5)
+Rewards
+A(2)
+Shocks Delivered
+A(4)
+Halo Deliveries
+A(6)
+Pun LP 1
+M(0)
+Pun LP 2
+M(2)
+Pun LP 3
+M(4)
+Pun LP 4
+M(6)
+Pun LP ?
+M(8)
+Unp LP 1
+M(1)
+Unp LP 2
+M(3)
+Unp LP 3
+M(5)
+Unp LP 4
+M(7)
+Unp LP ?
+M(9)
+Pun Lat 1
+R(0)
+Pun Lat 2
+R(1)
+Pun Lat 3
+R(2)
+Pun Lat 4
+R(3)
+Pun Lat ?
+R(4)
+Unp Lat 1
+S(0)
+Unp Lat 2
+S(1)
+Unp Lat 3
+S(2)
+Unp Lat 4
+S(3)
+Unp Lat ?
+S(4)
+Pun Mag 1
+E(0)
+Pun Mag 2
+E(2)
+Pun Mag 3
+E(4)
+Pun Mag 4
+E(6)
+Pun Mag ?
+E(8)
+Unp Mag 1
+E(1)
+Unp Mag 2
+E(3)
+Unp Mag 3
+E(5)
+Unp Mag 4
+E(7)
+Unp Mag ?
+E(9)
+Program Version
+Z(7)
+Session Length (min)
+Z(0)
+Variable Interval (s)
+Z(1)
+Halo duration (s)
+Z(9)
+Trial Length (s)
+Z(4)
+No. of Timebins
+Z(5)
