@@ -1,0 +1,1086 @@
+Subject
+Subject
+StartDate
+!StartDate
+StartTime
+!StartTime
+Experiment
+Experiment
+Group
+Group
+Box
+Box
+Program
+MSN
+Version doi:10.6084/m9.figshare.3145294
+A(37)
+LP rate
+A(58)
+PunLP rate
+A(59)
+UnpLP rate
+A(60)
+Pun ITI rate
+A(61)
+Unp ITI rate
+A(62)
+Pun csP rate
+A(63)
+Unp csP rate
+A(64)
+Pun csU rate
+A(65)
+Unp csU rate
+A(66)
+Ratios
+0.5
+ITIprefRatio (PunITI:UnpITI)
+A(67)
+CSp Pun(PunCSp:PunITI)
+A(68)
+CSp Both(BothCSp:BothITI)
+A(69)
+CSu Unp (UnpCSu:UnpITI)
+A(70)
+CSu Both(BothCSu:BothITI)
+A(71)
+CSp Unp(UnpCSp:UnpITI)
+A(72)
+CSu Pun(PunCSu:PunITI)
+A(73)
+Totals
+***
+Pun Lever Total
+A(0)
+Unp Lever Total
+A(1)
+Pun Lever Presses during ITI
+A(2)
+Unp Lever Presses during ITI
+A(3)
+Pun Lever Presses during CS-P
+A(4)
+Unp Lever Presses during CS-P
+A(5)
+Pun Lever Presses during CS-U
+A(6)
+Unp Lever Presses during CS-U
+A(7)
+Pellets Delievered
+A(8)
+Magazine Entries
+A(9)
+CS-P Presentations
+A(10)
+CS-U Presentations
+A(11)
+Total ITI time (seconds)
+A(12)
+Total CS-P time (seconds)
+A(13)
+Total CS-U time (seconds)
+A(14)
+Parameters
+***
+Session Length (min)
+A(23)
+Number of timebins
+A(24)
+Final Session Length (seconds)
+A(38)
+Pellet VI Schedule Pun
+A(27)
+Pellet VI Schedule Unp
+A(28)
+CS Duration (s)
+A(29)
+Punished Lever (1 Pun 2 Unp)
+A(30)
+Pun Lever Cue (1 Light 2 Click)
+A(32)
+Clicker Frequency (Hz)
+A(33)
+Clicker Amplitude (dB)
+A(34)
+Light Flash Time (s)
+A(35)
+Latencies
+***
+Latency to first Pun lever press (ITI)
+A(15)
+Latency to first Unp lever press (ITI)
+A(16)
+Latency to first Pun lever press (CS-P)
+A(17)
+Latency to first Unp lever press (CS-P)
+A(18)
+Latency to first Pun lever press (CS-U)
+A(19)
+Latency to first Unp lever press (CS-U)
+A(20)
+Latency to first pellet
+A(21)
+Latency to first magazine entry
+A(22)
+Timebins
+***
+Pun Lever ITI min  1
+D(0)
+Pun Lever ITI min  2
+D(1)
+Pun Lever ITI min  3
+D(2)
+Pun Lever ITI min  4
+D(3)
+Pun Lever ITI min  5
+D(4)
+Pun Lever ITI min  6
+D(5)
+Pun Lever ITI min  7
+D(6)
+Pun Lever ITI min  8
+D(7)
+Pun Lever ITI min  9
+D(8)
+Pun Lever ITI min  10
+D(9)
+Pun Lever ITI min  11
+D(10)
+Pun Lever ITI min  12
+D(11)
+Pun Lever ITI min  13
+D(12)
+Pun Lever ITI min  14
+D(13)
+Pun Lever ITI min  15
+D(14)
+Pun Lever ITI min  16
+D(15)
+Pun Lever ITI min  17
+D(16)
+Pun Lever ITI min  18
+D(17)
+Pun Lever ITI min  19
+D(18)
+Pun Lever ITI min  20
+D(19)
+Pun Lever ITI min  21
+D(20)
+Pun Lever ITI min  22
+D(21)
+Pun Lever ITI min  23
+D(22)
+Pun Lever ITI min  24
+D(23)
+Pun Lever ITI min  25
+D(24)
+Pun Lever ITI min  26
+D(25)
+Pun Lever ITI min  27
+D(26)
+Pun Lever ITI min  28
+D(27)
+Pun Lever ITI min  29
+D(28)
+Pun Lever ITI min  30
+D(29)
+Pun Lever ITI min  31
+D(30)
+Pun Lever ITI min  32
+D(31)
+Pun Lever ITI min  33
+D(32)
+Pun Lever ITI min  34
+D(33)
+Pun Lever ITI min  35
+D(34)
+Pun Lever ITI min  36
+D(35)
+Pun Lever ITI min  37
+D(36)
+Pun Lever ITI min  38
+D(37)
+Pun Lever ITI min  39
+D(38)
+Pun Lever ITI min  40
+D(39)
+Pun Lever ITI min  41
+D(40)
+Pun Lever ITI min  42
+D(41)
+Pun Lever ITI min  43
+D(42)
+Pun Lever ITI min  44
+D(43)
+Pun Lever ITI min  45
+D(44)
+Pun Lever ITI min  46
+D(45)
+Pun Lever ITI min  47
+D(46)
+Pun Lever ITI min  48
+D(47)
+Pun Lever ITI min  49
+D(48)
+Pun Lever ITI min  50
+D(49)
+Pun Lever ITI min  51
+D(50)
+Pun Lever ITI min  52
+D(51)
+Pun Lever ITI min  53
+D(52)
+Pun Lever ITI min  54
+D(53)
+Pun Lever ITI min  55
+D(54)
+Pun Lever ITI min  56
+D(55)
+Pun Lever ITI min  57
+D(56)
+Pun Lever ITI min  58
+D(57)
+Pun Lever ITI min  59
+D(58)
+Pun Lever ITI min  60
+D(59)
+Unp Lever ITI min  1
+E(0)
+Unp Lever ITI min  2
+E(1)
+Unp Lever ITI min  3
+E(2)
+Unp Lever ITI min  4
+E(3)
+Unp Lever ITI min  5
+E(4)
+Unp Lever ITI min  6
+E(5)
+Unp Lever ITI min  7
+E(6)
+Unp Lever ITI min  8
+E(7)
+Unp Lever ITI min  9
+E(8)
+Unp Lever ITI min  10
+E(9)
+Unp Lever ITI min  11
+E(10)
+Unp Lever ITI min  12
+E(11)
+Unp Lever ITI min  13
+E(12)
+Unp Lever ITI min  14
+E(13)
+Unp Lever ITI min  15
+E(14)
+Unp Lever ITI min  16
+E(15)
+Unp Lever ITI min  17
+E(16)
+Unp Lever ITI min  18
+E(17)
+Unp Lever ITI min  19
+E(18)
+Unp Lever ITI min  20
+E(19)
+Unp Lever ITI min  21
+E(20)
+Unp Lever ITI min  22
+E(21)
+Unp Lever ITI min  23
+E(22)
+Unp Lever ITI min  24
+E(23)
+Unp Lever ITI min  25
+E(24)
+Unp Lever ITI min  26
+E(25)
+Unp Lever ITI min  27
+E(26)
+Unp Lever ITI min  28
+E(27)
+Unp Lever ITI min  29
+E(28)
+Unp Lever ITI min  30
+E(29)
+Unp Lever ITI min  31
+E(30)
+Unp Lever ITI min  32
+E(31)
+Unp Lever ITI min  33
+E(32)
+Unp Lever ITI min  34
+E(33)
+Unp Lever ITI min  35
+E(34)
+Unp Lever ITI min  36
+E(35)
+Unp Lever ITI min  37
+E(36)
+Unp Lever ITI min  38
+E(37)
+Unp Lever ITI min  39
+E(38)
+Unp Lever ITI min  40
+E(39)
+Unp Lever ITI min  41
+E(40)
+Unp Lever ITI min  42
+E(41)
+Unp Lever ITI min  43
+E(42)
+Unp Lever ITI min  44
+E(43)
+Unp Lever ITI min  45
+E(44)
+Unp Lever ITI min  46
+E(45)
+Unp Lever ITI min  47
+E(46)
+Unp Lever ITI min  48
+E(47)
+Unp Lever ITI min  49
+E(48)
+Unp Lever ITI min  50
+E(49)
+Unp Lever ITI min  51
+E(50)
+Unp Lever ITI min  52
+E(51)
+Unp Lever ITI min  53
+E(52)
+Unp Lever ITI min  54
+E(53)
+Unp Lever ITI min  55
+E(54)
+Unp Lever ITI min  56
+E(55)
+Unp Lever ITI min  57
+E(56)
+Unp Lever ITI min  58
+E(57)
+Unp Lever ITI min  59
+E(58)
+Unp Lever ITI min  60
+E(59)
+Pun Lever CS-P min  1
+F(0)
+Pun Lever CS-P min  2
+F(1)
+Pun Lever CS-P min  3
+F(2)
+Pun Lever CS-P min  4
+F(3)
+Pun Lever CS-P min  5
+F(4)
+Pun Lever CS-P min  6
+F(5)
+Pun Lever CS-P min  7
+F(6)
+Pun Lever CS-P min  8
+F(7)
+Pun Lever CS-P min  9
+F(8)
+Pun Lever CS-P min  10
+F(9)
+Pun Lever CS-P min  11
+F(10)
+Pun Lever CS-P min  12
+F(11)
+Pun Lever CS-P min  13
+F(12)
+Pun Lever CS-P min  14
+F(13)
+Pun Lever CS-P min  15
+F(14)
+Pun Lever CS-P min  16
+F(15)
+Pun Lever CS-P min  17
+F(16)
+Pun Lever CS-P min  18
+F(17)
+Pun Lever CS-P min  19
+F(18)
+Pun Lever CS-P min  20
+F(19)
+Pun Lever CS-P min  21
+F(20)
+Pun Lever CS-P min  22
+F(21)
+Pun Lever CS-P min  23
+F(22)
+Pun Lever CS-P min  24
+F(23)
+Pun Lever CS-P min  25
+F(24)
+Pun Lever CS-P min  26
+F(25)
+Pun Lever CS-P min  27
+F(26)
+Pun Lever CS-P min  28
+F(27)
+Pun Lever CS-P min  29
+F(28)
+Pun Lever CS-P min  30
+F(29)
+Pun Lever CS-P min  31
+F(30)
+Pun Lever CS-P min  32
+F(31)
+Pun Lever CS-P min  33
+F(32)
+Pun Lever CS-P min  34
+F(33)
+Pun Lever CS-P min  35
+F(34)
+Pun Lever CS-P min  36
+F(35)
+Pun Lever CS-P min  37
+F(36)
+Pun Lever CS-P min  38
+F(37)
+Pun Lever CS-P min  39
+F(38)
+Pun Lever CS-P min  40
+F(39)
+Pun Lever CS-P min  41
+F(40)
+Pun Lever CS-P min  42
+F(41)
+Pun Lever CS-P min  43
+F(42)
+Pun Lever CS-P min  44
+F(43)
+Pun Lever CS-P min  45
+F(44)
+Pun Lever CS-P min  46
+F(45)
+Pun Lever CS-P min  47
+F(46)
+Pun Lever CS-P min  48
+F(47)
+Pun Lever CS-P min  49
+F(48)
+Pun Lever CS-P min  50
+F(49)
+Pun Lever CS-P min  51
+F(50)
+Pun Lever CS-P min  52
+F(51)
+Pun Lever CS-P min  53
+F(52)
+Pun Lever CS-P min  54
+F(53)
+Pun Lever CS-P min  55
+F(54)
+Pun Lever CS-P min  56
+F(55)
+Pun Lever CS-P min  57
+F(56)
+Pun Lever CS-P min  58
+F(57)
+Pun Lever CS-P min  59
+F(58)
+Pun Lever CS-P min  60
+F(59)
+Unp Lever CS-P min  1
+G(0)
+Unp Lever CS-P min  2
+G(1)
+Unp Lever CS-P min  3
+G(2)
+Unp Lever CS-P min  4
+G(3)
+Unp Lever CS-P min  5
+G(4)
+Unp Lever CS-P min  6
+G(5)
+Unp Lever CS-P min  7
+G(6)
+Unp Lever CS-P min  8
+G(7)
+Unp Lever CS-P min  9
+G(8)
+Unp Lever CS-P min  10
+G(9)
+Unp Lever CS-P min  11
+G(10)
+Unp Lever CS-P min  12
+G(11)
+Unp Lever CS-P min  13
+G(12)
+Unp Lever CS-P min  14
+G(13)
+Unp Lever CS-P min  15
+G(14)
+Unp Lever CS-P min  16
+G(15)
+Unp Lever CS-P min  17
+G(16)
+Unp Lever CS-P min  18
+G(17)
+Unp Lever CS-P min  19
+G(18)
+Unp Lever CS-P min  20
+G(19)
+Unp Lever CS-P min  21
+G(20)
+Unp Lever CS-P min  22
+G(21)
+Unp Lever CS-P min  23
+G(22)
+Unp Lever CS-P min  24
+G(23)
+Unp Lever CS-P min  25
+G(24)
+Unp Lever CS-P min  26
+G(25)
+Unp Lever CS-P min  27
+G(26)
+Unp Lever CS-P min  28
+G(27)
+Unp Lever CS-P min  29
+G(28)
+Unp Lever CS-P min  30
+G(29)
+Unp Lever CS-P min  31
+G(30)
+Unp Lever CS-P min  32
+G(31)
+Unp Lever CS-P min  33
+G(32)
+Unp Lever CS-P min  34
+G(33)
+Unp Lever CS-P min  35
+G(34)
+Unp Lever CS-P min  36
+G(35)
+Unp Lever CS-P min  37
+G(36)
+Unp Lever CS-P min  38
+G(37)
+Unp Lever CS-P min  39
+G(38)
+Unp Lever CS-P min  40
+G(39)
+Unp Lever CS-P min  41
+G(40)
+Unp Lever CS-P min  42
+G(41)
+Unp Lever CS-P min  43
+G(42)
+Unp Lever CS-P min  44
+G(43)
+Unp Lever CS-P min  45
+G(44)
+Unp Lever CS-P min  46
+G(45)
+Unp Lever CS-P min  47
+G(46)
+Unp Lever CS-P min  48
+G(47)
+Unp Lever CS-P min  49
+G(48)
+Unp Lever CS-P min  50
+G(49)
+Unp Lever CS-P min  51
+G(50)
+Unp Lever CS-P min  52
+G(51)
+Unp Lever CS-P min  53
+G(52)
+Unp Lever CS-P min  54
+G(53)
+Unp Lever CS-P min  55
+G(54)
+Unp Lever CS-P min  56
+G(55)
+Unp Lever CS-P min  57
+G(56)
+Unp Lever CS-P min  58
+G(57)
+Unp Lever CS-P min  59
+G(58)
+Unp Lever CS-P min  60
+G(59)
+Pun Lever CS-U min  1
+H(0)
+Pun Lever CS-U min  2
+H(1)
+Pun Lever CS-U min  3
+H(2)
+Pun Lever CS-U min  4
+H(3)
+Pun Lever CS-U min  5
+H(4)
+Pun Lever CS-U min  6
+H(5)
+Pun Lever CS-U min  7
+H(6)
+Pun Lever CS-U min  8
+H(7)
+Pun Lever CS-U min  9
+H(8)
+Pun Lever CS-U min  10
+H(9)
+Pun Lever CS-U min  11
+H(10)
+Pun Lever CS-U min  12
+H(11)
+Pun Lever CS-U min  13
+H(12)
+Pun Lever CS-U min  14
+H(13)
+Pun Lever CS-U min  15
+H(14)
+Pun Lever CS-U min  16
+H(15)
+Pun Lever CS-U min  17
+H(16)
+Pun Lever CS-U min  18
+H(17)
+Pun Lever CS-U min  19
+H(18)
+Pun Lever CS-U min  20
+H(19)
+Pun Lever CS-U min  21
+H(20)
+Pun Lever CS-U min  22
+H(21)
+Pun Lever CS-U min  23
+H(22)
+Pun Lever CS-U min  24
+H(23)
+Pun Lever CS-U min  25
+H(24)
+Pun Lever CS-U min  26
+H(25)
+Pun Lever CS-U min  27
+H(26)
+Pun Lever CS-U min  28
+H(27)
+Pun Lever CS-U min  29
+H(28)
+Pun Lever CS-U min  30
+H(29)
+Pun Lever CS-U min  31
+H(30)
+Pun Lever CS-U min  32
+H(31)
+Pun Lever CS-U min  33
+H(32)
+Pun Lever CS-U min  34
+H(33)
+Pun Lever CS-U min  35
+H(34)
+Pun Lever CS-U min  36
+H(35)
+Pun Lever CS-U min  37
+H(36)
+Pun Lever CS-U min  38
+H(37)
+Pun Lever CS-U min  39
+H(38)
+Pun Lever CS-U min  40
+H(39)
+Pun Lever CS-U min  41
+H(40)
+Pun Lever CS-U min  42
+H(41)
+Pun Lever CS-U min  43
+H(42)
+Pun Lever CS-U min  44
+H(43)
+Pun Lever CS-U min  45
+H(44)
+Pun Lever CS-U min  46
+H(45)
+Pun Lever CS-U min  47
+H(46)
+Pun Lever CS-U min  48
+H(47)
+Pun Lever CS-U min  49
+H(48)
+Pun Lever CS-U min  50
+H(49)
+Pun Lever CS-U min  51
+H(50)
+Pun Lever CS-U min  52
+H(51)
+Pun Lever CS-U min  53
+H(52)
+Pun Lever CS-U min  54
+H(53)
+Pun Lever CS-U min  55
+H(54)
+Pun Lever CS-U min  56
+H(55)
+Pun Lever CS-U min  57
+H(56)
+Pun Lever CS-U min  58
+H(57)
+Pun Lever CS-U min  59
+H(58)
+Pun Lever CS-U min  60
+H(59)
+Unp Lever CS-U min  1
+I(0)
+Unp Lever CS-U min  2
+I(1)
+Unp Lever CS-U min  3
+I(2)
+Unp Lever CS-U min  4
+I(3)
+Unp Lever CS-U min  5
+I(4)
+Unp Lever CS-U min  6
+I(5)
+Unp Lever CS-U min  7
+I(6)
+Unp Lever CS-U min  8
+I(7)
+Unp Lever CS-U min  9
+I(8)
+Unp Lever CS-U min  10
+I(9)
+Unp Lever CS-U min  11
+I(10)
+Unp Lever CS-U min  12
+I(11)
+Unp Lever CS-U min  13
+I(12)
+Unp Lever CS-U min  14
+I(13)
+Unp Lever CS-U min  15
+I(14)
+Unp Lever CS-U min  16
+I(15)
+Unp Lever CS-U min  17
+I(16)
+Unp Lever CS-U min  18
+I(17)
+Unp Lever CS-U min  19
+I(18)
+Unp Lever CS-U min  20
+I(19)
+Unp Lever CS-U min  21
+I(20)
+Unp Lever CS-U min  22
+I(21)
+Unp Lever CS-U min  23
+I(22)
+Unp Lever CS-U min  24
+I(23)
+Unp Lever CS-U min  25
+I(24)
+Unp Lever CS-U min  26
+I(25)
+Unp Lever CS-U min  27
+I(26)
+Unp Lever CS-U min  28
+I(27)
+Unp Lever CS-U min  29
+I(28)
+Unp Lever CS-U min  30
+I(29)
+Unp Lever CS-U min  31
+I(30)
+Unp Lever CS-U min  32
+I(31)
+Unp Lever CS-U min  33
+I(32)
+Unp Lever CS-U min  34
+I(33)
+Unp Lever CS-U min  35
+I(34)
+Unp Lever CS-U min  36
+I(35)
+Unp Lever CS-U min  37
+I(36)
+Unp Lever CS-U min  38
+I(37)
+Unp Lever CS-U min  39
+I(38)
+Unp Lever CS-U min  40
+I(39)
+Unp Lever CS-U min  41
+I(40)
+Unp Lever CS-U min  42
+I(41)
+Unp Lever CS-U min  43
+I(42)
+Unp Lever CS-U min  44
+I(43)
+Unp Lever CS-U min  45
+I(44)
+Unp Lever CS-U min  46
+I(45)
+Unp Lever CS-U min  47
+I(46)
+Unp Lever CS-U min  48
+I(47)
+Unp Lever CS-U min  49
+I(48)
+Unp Lever CS-U min  50
+I(49)
+Unp Lever CS-U min  51
+I(50)
+Unp Lever CS-U min  52
+I(51)
+Unp Lever CS-U min  53
+I(52)
+Unp Lever CS-U min  54
+I(53)
+Unp Lever CS-U min  55
+I(54)
+Unp Lever CS-U min  56
+I(55)
+Unp Lever CS-U min  57
+I(56)
+Unp Lever CS-U min  58
+I(57)
+Unp Lever CS-U min  59
+I(58)
+Unp Lever CS-U min  60
+I(59)
+Rewards min  1
+J(0)
+Rewards min  2
+J(1)
+Rewards min  3
+J(2)
+Rewards min  4
+J(3)
+Rewards min  5
+J(4)
+Rewards min  6
+J(5)
+Rewards min  7
+J(6)
+Rewards min  8
+J(7)
+Rewards min  9
+J(8)
+Rewards min  10
+J(9)
+Rewards min  11
+J(10)
+Rewards min  12
+J(11)
+Rewards min  13
+J(12)
+Rewards min  14
+J(13)
+Rewards min  15
+J(14)
+Rewards min  16
+J(15)
+Rewards min  17
+J(16)
+Rewards min  18
+J(17)
+Rewards min  19
+J(18)
+Rewards min  20
+J(19)
+Rewards min  21
+J(20)
+Rewards min  22
+J(21)
+Rewards min  23
+J(22)
+Rewards min  24
+J(23)
+Rewards min  25
+J(24)
+Rewards min  26
+J(25)
+Rewards min  27
+J(26)
+Rewards min  28
+J(27)
+Rewards min  29
+J(28)
+Rewards min  30
+J(29)
+Rewards min  31
+J(30)
+Rewards min  32
+J(31)
+Rewards min  33
+J(32)
+Rewards min  34
+J(33)
+Rewards min  35
+J(34)
+Rewards min  36
+J(35)
+Rewards min  37
+J(36)
+Rewards min  38
+J(37)
+Rewards min  39
+J(38)
+Rewards min  40
+J(39)
+Rewards min  41
+J(40)
+Rewards min  42
+J(41)
+Rewards min  43
+J(42)
+Rewards min  44
+J(43)
+Rewards min  45
+J(44)
+Rewards min  46
+J(45)
+Rewards min  47
+J(46)
+Rewards min  48
+J(47)
+Rewards min  49
+J(48)
+Rewards min  50
+J(49)
+Rewards min  51
+J(50)
+Rewards min  52
+J(51)
+Rewards min  53
+J(52)
+Rewards min  54
+J(53)
+Rewards min  55
+J(54)
+Rewards min  56
+J(55)
+Rewards min  57
+J(56)
+Rewards min  58
+J(57)
+Rewards min  59
+J(58)
+Rewards min  60
+J(59)
+Magazine Entries min  1
+K(0)
+Magazine Entries min  2
+K(1)
+Magazine Entries min  3
+K(2)
+Magazine Entries min  4
+K(3)
+Magazine Entries min  5
+K(4)
+Magazine Entries min  6
+K(5)
+Magazine Entries min  7
+K(6)
+Magazine Entries min  8
+K(7)
+Magazine Entries min  9
+K(8)
+Magazine Entries min  10
+K(9)
+Magazine Entries min  11
+K(10)
+Magazine Entries min  12
+K(11)
+Magazine Entries min  13
+K(12)
+Magazine Entries min  14
+K(13)
+Magazine Entries min  15
+K(14)
+Magazine Entries min  16
+K(15)
+Magazine Entries min  17
+K(16)
+Magazine Entries min  18
+K(17)
+Magazine Entries min  19
+K(18)
+Magazine Entries min  20
+K(19)
+Magazine Entries min  21
+K(20)
+Magazine Entries min  22
+K(21)
+Magazine Entries min  23
+K(22)
+Magazine Entries min  24
+K(23)
+Magazine Entries min  25
+K(24)
+Magazine Entries min  26
+K(25)
+Magazine Entries min  27
+K(26)
+Magazine Entries min  28
+K(27)
+Magazine Entries min  29
+K(28)
+Magazine Entries min  30
+K(29)
+Magazine Entries min  31
+K(30)
+Magazine Entries min  32
+K(31)
+Magazine Entries min  33
+K(32)
+Magazine Entries min  34
+K(33)
+Magazine Entries min  35
+K(34)
+Magazine Entries min  36
+K(35)
+Magazine Entries min  37
+K(36)
+Magazine Entries min  38
+K(37)
+Magazine Entries min  39
+K(38)
+Magazine Entries min  40
+K(39)
+Magazine Entries min  41
+K(40)
+Magazine Entries min  42
+K(41)
+Magazine Entries min  43
+K(42)
+Magazine Entries min  44
+K(43)
+Magazine Entries min  45
+K(44)
+Magazine Entries min  46
+K(45)
+Magazine Entries min  47
+K(46)
+Magazine Entries min  48
+K(47)
+Magazine Entries min  49
+K(48)
+Magazine Entries min  50
+K(49)
+Magazine Entries min  51
+K(50)
+Magazine Entries min  52
+K(51)
+Magazine Entries min  53
+K(52)
+Magazine Entries min  54
+K(53)
+Magazine Entries min  55
+K(54)
+Magazine Entries min  56
+K(55)
+Magazine Entries min  57
+K(56)
+Magazine Entries min  58
+K(57)
+Magazine Entries min  59
+K(58)
+Magazine Entries min  60
+K(59)
