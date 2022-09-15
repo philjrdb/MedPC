@@ -1,0 +1,191 @@
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\###################################### Header ######################################
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Name:		
+\Title:		
+\Description:	Session length = 1hr. magazine training schedule with reward delivered every 2.5 mins. Both levers present with a continuous reinforcement schedule. Program terminates after 1hr OR 25 bar presses of each lever
+\Author: Phil JRDB	
+\Date: 19/12/2012	
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\###################################### VALUES ######################################
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\CONTROL CONSTANTS:
+\ Inputs
+	^LLr			= 1 \ left lever response
+	^RLr    		= 2 \ right lever response
+	^Mag			= 3 \ magazine beam broken	
+\ Outputs		
+	^LLOn			= 1 \ Insert Left Lever
+	^RLOn		        = 2 \ Insert Right Lever
+	^Pel			= 3 \Operate pellet dispenser
+	^LeftLight		= 4 \operate Left stimulus light
+	^RightLight		= 5 \operate right stimulus light		
+	^House			= 7 \ Operate House light
+	^Shock		        = 8 \ Operate shock generator
+
+\SESSION CONSTANTS:
+	^RTSchedule		= 150 \ Schedule of reinforcement in seconds e.g. 150 = a reward delivered randomly once every 150 seconds (i.e. 2.5 mins): More precisely ---> every 1 second there is a 1/150 chance of a pellet being delivered
+	^sessionlength		= 60 \ Session length in minutes
+	^TotalPel		= 25 \ Total Number of rewards on each lever for the session
+
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\VARIABLES:
+\	a	= trial counter array
+\	b
+\	c
+\	d       = left lever condition
+\	e       = right lever condition
+\	f
+\	g
+\	h
+\	i
+\	j
+\	k
+\	l
+\	m
+\	n
+\	o
+\	p
+\	q
+\	r
+\	s
+\	t 	= ###DATA ARRAY### Timer array
+\	u
+\	v
+\	w
+\	x 	 
+\	y 	= ###DATA ARRAY### Lever press array
+\	z	= ###DATA ARRAY### Magazine entries array
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\DATA ARRAYS:
+	dim a = 50
+        dim b = 50
+	dim t = 50
+        dim w = 500
+	dim y = 500
+	dim z = 500
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\LIST DATA:
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\Z-SIGNALS
+	^begin = 1
+	^ONpel = 2
+\
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DISKVARS = a, b, c, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, y, z							\The data from these variables will be stored for analyses.
+\
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\#################################### THE PROGRAM ###################################
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.1,
+s1,
+	#START: On^house;
+		z^begin; 
+		Set d = 0;
+		Set e = 0 ---> sx
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      Stuff?         ~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.2,
+s1,
+	#z^begin: On^LLOn; On^RLOn ---> s2
+s2, 
+	0.1": set t(0) = (t(0) + 0.1); IF t(0) >= (^sessionlength * 60) [@End, @Ignore]
+					@End: Off^LLon; Off^RLOn; Off^House; show 6, End, 0 ---> Stopabortflush
+					@Ignore: ---> sx
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      Pellet delivery         ~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.3,
+s1,
+	#z^ONpel: On^Pel; add a(0); Show 2, TotalPel, a(0) ---> s2
+s2,
+
+	0.1": OFF^Pel ---> s1
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Mag Train Pellet delivery~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\s.s.4,
+\s1,
+\	#z^begin: ---> s2
+\s2,
+\	1": withpi = (10000 / ^RTSchedule) [@reinforce,@noreinforcement]	
+\						@reinforce: add a(2); z^ONPel ---> sx
+\						@noreinforcement: ---> sx
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Left lever recording    ~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.5,
+s1,
+	#R^LLr: add a(1); 
+		add w(0);
+		add w(t(1));
+		Show 3, LLeverPress, w(0);
+		z^ONpel; 
+		If a(1) = ^TotalPel [@End, @Reward]
+						@End: Off^LLon; set d = 1; If (d + e) = 2 [@T, @F]
+							@T: Off^LLon; Off^RLOn; Off^House; show 6, End, 0 ---> Stopabortflush
+							@F: ---> sx
+						@Reward: ---> sx
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Right lever recording    ~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.6,
+s1,
+	#R^RLr: add b(1); 
+		add y(0);
+		add y(t(1));
+		Show 4, RLeverPress, y(0);
+		z^ONpel; 
+		If b(1) = ^TotalPel [@End, @Reward]
+						@End: Off^RLon; set e = 1; If (d + e) = 2 [@T, @F]
+							@T: Off^LLon; Off^RLOn; Off^House; show 6, End, 0 ---> Stopabortflush
+							@F: ---> sx
+						@Reward: ---> sx										
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Magazine recording      ~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.7,
+s1,
+	#Z^begin: ---> s2
+
+s2,
+	#R^Mag: add z(0);
+		add z(t(1));
+		show 5, MagEntry, z(0) ---> sx
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Minute timer     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.8,
+s1,
+	#z^begin: set t(1) = 1 ---> s2
+s2,
+	1': add t(1) ---> sx 
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+s.s.9,
+s1,
+	#Z^begin: set t(3) = (^sessionlength*60) ---> s2
+s2,
+	0.1": set t(3) = (t(3) - 0.1); show 1, Session, t(3) ---> sx	
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\#################################### THE DATA    ###################################
+\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\ a(0) = total rewards
+\ a(1) = total rewards delivered on left lever presses
+\ a(2) = total rewards delivered on magtrain schedule
+\ b(1) = total rewards delivered on right lever presses
+\ t(0) = session timer in seconds (0.1s resolution)
+\ t(1) = minute timer
+\ t(3) = session timer countdown
+\ w(0) = total left lever presses
+\ w(1-30) = left lever presses in 1 minute bins
+\ y(0) = total right lever presses
+\ y(1-30) = right lever presses in 1 minute bins
+\ z(0) = total magazine entries
+\ z(1-30) = magazine entries in 1 minute bins
