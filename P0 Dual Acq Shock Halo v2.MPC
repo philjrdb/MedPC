@@ -1,0 +1,513 @@
+\-------------------------------------------------------------------------
+\P0 Dual Lever Acq Shock Halo
+\Version 2.3
+\By Phil JRDB (7 April 2017)
+\
+\Alternating levers reinforced on VI schedule, punished lever shocked on FR schedule,
+\halo on FR schedule that only initiates initially (first halo each trial) and after shock delivered
+\(so Halo FR5 doesn't ever overlap with shock FR10).
+\-------------------------------------------------------------------------
+
+\Inputs
+^LeftLever = 1
+^RightLever = 2
+^Magazine = 3
+
+\Outputs
+^LeftOut = 1
+^RightOut = 2
+^Pellet = 3
+^LeftLight = 4
+^RightLight = 5
+^Halo = 6
+^HouseLight = 7
+^Shock = 8
+
+\Z-Pulses
+^Omnom = 1
+^NewTrial = 2
+^Shutdown = 3
+^HaloOff = 4
+^ShockOff = 5
+
+\DATA - TOTALS
+DIM A = 7
+\A(0) = Punished Lever
+\A(1) = Unpunished Lever
+\A(2) = Rewards
+\A(3) = Pun Mag Entries
+\A(5) = Unp Mag Entries
+\A(4) = Shocks Delivered
+\A(6) = Halo deliveries
+
+\DATA - TIMECOURSE
+DIM B = 50000    \Event time,        Subscript D
+DIM C = 50000    \Event identity,      Subscript D
+    \(1 PunLP, 2 UnpLP, 3 Pellet, 4 PunMag, 5 UnpMag, 6 Shock, 7 Halo)
+
+\DATA - TRIAL (Pun = cells 0,2,4,6,8, Unp = cells 1,3,5,7)
+DIM E = 100    \Mag Entries,  Subscript F
+DIM M = 100    \LP,           Subscript F
+
+\DATA - TIMEBINS
+DIM G = 1000    \Punished Lever,        Subscript T
+DIM H = 1000    \Unpunished Lever,        Subscript T
+DIM I = 1000    \Rewards,            Subscript T
+DIM J = 1000    \Magazine Entries,        Subscript T
+DIM K = 1000    \Shocks,            Subscript T
+DIM L = 1000    \Halo,            Subscript T
+
+\DATA - LATENCIES
+DIM R = 100    \Punished Lever,        Subscript U
+DIM S = 100    \Unpunished Lever,        Subscript V
+
+\CONTROL VARIABLES - SESSION OPERATION
+DIM X = 10
+\X(0) = VI Time
+\X(1) = Session Clock
+\X(2) = Millisecond Clock
+\X(3) = Timebin shifter
+\X(4) = Millisecond Trial Clock
+\X(5) = Shock Counter
+\X(6) = Current Lever
+\X(7) = Halo Counter
+\X(8) = Presses until shock
+\X(9) = Presses until halo
+
+\This list will be initialised into the VI schedule
+LIST Y = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30
+
+\CONTROL VARIABLES - SESSION PARAMETERS
+DIM Z = 11
+var_alias Session Length (min) = Z(0)
+var_alias Variable Interval (s) = Z(1)
+var_alias First Lever = Z(2)
+var_alias Shocked Lever = Z(3)
+var_alias Trial Length (s) = Z(4)
+var_alias No. of Timebins = Z(5)
+var_alias Shock Ratio = Z(6)
+var_alias Program Version = Z(7)
+var_alias Halo Ratio = Z(8)
+var_alias Halo Duration (sec) = Z(9)
+var_alias Halo Shock Reset = Z(10)    \0 = Halo FR, 1 = Halo FR resumes after shock
+
+\DATA MANAGEMENT
+DISKVARS = A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, Y, Z
+DISKOPTIONS = FULLHEADERS
+DISKCOLUMNS = 1
+Y2KCOMPLIANT
+
+\-------------------------------------------------------------------------
+\State Set 1 - Session Control Program
+
+S.S.1,
+S1,    \State 1 sets default variable values.
+    0.01": SET Z(0) = 40, Z(1) = 30, Z(4) = 300, Z(5) = 80;
+    SET Z(6) = 10, Z(7) = 2.4, Z(8) = 10, Z(9) = 5, Z(10) = 0;
+
+    \Seal all the arrays
+    SET B(D+1) = -987.987, C(D+1) = -987.987, G(T+1) = -987.987;
+    SET H(T+1) = -987.987, I(T+1) = -987.987, J(T+1) = -987.987;
+    SET K(T+1) = -987.987, L(T+1) = -987.987;
+    SET R(U+1) = -987.987, S(V+1) = -987.987 ---> S2
+
+S2,    \Set default Pun lever, determine first lever
+        0.01": IF (Z(2) < 1) OR (Z(3) < 1) [@AUTOG, @CHECKSET]
+        @AUTOG: IF (BOX = 1) OR (BOX = 5) OR (BOX = 6) OR (BOX = 7)[@PunL, @PunR]
+          @PunL: SET Z(3) = 1; SHOW 3, Pun Lever (L1 R2), Z(3);
+                  WITHPI = 5000 [@LeftF, @RightF]
+                    @LeftF: SET Z(2) = 1; Show 2, First Lever, Z(2); ---> SX
+                    @RightF: SET Z(2) = 2; Show 2, First Lever, Z(2); ---> SX
+          @PunR: SET Z(3) = 2; SHOW 3, Pun Lever (L1 R2), Z(3);
+                  WITHPI = 5000 [@LeftF, @RightF]
+                    @LeftF: SET Z(2) = 1; Show 2, First Lever, Z(2); ---> SX
+                    @RightF: SET Z(2) = 2; Show 2, First Lever, Z(2); ---> SX
+        @CHECKSET: Show 2, First Lever, Z(2), 3, Pun Lever (L1 R2), Z(3) ---> S3
+
+S3,    \State 2 shows the default variables and responds to start command
+    #START: SHOW 1, Session Time, X(1);
+    SHOW 4, Pellets, A(2);
+    SET STARTHOURS = CURRENTHOURS;
+    SET STARTMINUTES = CURRENTMINUTES, STARTSECONDS = CURRENTSECONDS;
+    IF Z(2) = Z(3) [@PunFirst, @UnpFirst]
+        @PunFirst: ---> S4
+        @UnpFirst: ADD F ---> S4
+
+S4,    \Session clock and VI modifier
+    1": ADD X(1); SHOW 1, Session Time, X(1);
+    IF X(1) / 60 >= Z(0) [@TRUE, @FALSE]
+        @TRUE: Z^Shutdown; ADD D, F;
+               SET B(D) = -987.987, C(D) = -987.987, E(F) = -987.987, M(F) = -987.987 ---> S5
+        @FALSE: ---> SX
+
+S5,    \End Program
+    1": ---> STOPABORTFLUSH
+
+\-------------------------------------------------------------------------
+\State Set 2 - Lever Counter
+
+S.S.2,
+S1,    \State 1 responds to the start command
+    #START: IF ((Z(2) > 0.9) AND (Z(2) <1.1)) OR ((Z(2) > 1.9) AND (Z(2) < 2.1)) [@Valid, @Invalid]
+        @Valid: IF (Z(2) > 0.9) AND (Z(2) <1.1) [@Left, @Right]
+            @Left: SET X(6) = 1; ON ^LeftOut;
+            IF (Z(3) > 0.9) AND (Z(3) < 1.1) [@ShockLeft, @ShockRight]
+                @ShockLeft: SHOW 2, Punished LLever, A(0);
+                    SHOW 7, Unpunished RLever, A(1) ---> S2
+                @ShockRight: SHOW 2, Punished RLever, A(0);
+                    SHOW 7, Unpunished LLever, A(1) ---> S4
+            @Right: SET X(6) = 2; ON ^RightOut;
+            IF (Z(3) > 1.9) AND (Z(3) < 2.1) [@ShockRight, @ShockLeft]
+                @ShockRight: SHOW 2, Punished RLever, A(0);
+                    SHOW 7, Unpunished LLever, A(1) ---> S6
+                @ShockLeft: SHOW 2, Punished LLever, A(0);
+                    SHOW 7, Unpunished RLever, A(1) ---> S8
+        @Invalid: SHOW 1, Invalid First Lever, Z(2) ---> STOPKILL
+
+S2,    \State 2 counts latency for the punished left lever
+    #R^LeftLever: SET R(U) = X(4); ADD U; SET R(U) = -987.987;
+    ADD A(0), M(F), G(T);
+    SET B(D) = X(2), C(D) = 1; ADD D;
+    SHOW 2, Punished LLever, A(0); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> S3
+        @HAHA: ---> S3
+
+    #Z^NewTrial: SET R(U) = Z(4); ADD U; SET R(U) = -987.987;
+    SET X(6) = 2; OFF ^LeftOut; ON ^RightOut ---> S8
+    #Z^Shutdown: SET R(U) = Z(4); ADD U; SET R(U) = -987.987 ---> S1
+
+S3,    \State 3 counts lever presses for the punished left lever
+    #R^LeftLever: ADD A(0), M(F), G(T);
+    SET B(D) = X(2), C(D) = 1; ADD D;
+    SHOW 2, Punished LLever, A(0); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> SX
+        @HAHA: ---> SX
+
+    #Z^NewTrial: SET X(6) = 2; OFF ^LeftOut; ON ^RightOut ---> S8
+    #Z^Shutdown: ---> S1
+
+S4,    \State 4 counts latency for the unpunished left lever
+    #R^LeftLever: SET S(V) = X(4); ADD V; SET S(V) = -987.987;
+    ADD A(1), M(F), H(T);
+    SET B(D) = X(2), C(D) = 2; ADD D;
+    SHOW 7, Unpunished LLever, A(1); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> S5
+        @HAHA: ---> S5
+
+    #Z^NewTrial: SET S(V) = Z(4); ADD V; SET S(V) = -987.987;
+    SET X(6) = 2; OFF ^LeftOut; ON ^RightOut ---> S6
+    #Z^Shutdown: SET S(V) = Z(4); ADD V; SET S(V) = -987.987 ---> S1
+
+S5,    \State 5 counts lever presses for the unpunished left lever
+    #R^LeftLever: ADD A(1), M(F), H(T);
+    SET B(D) = X(2), C(D) = 2; ADD D;
+    SHOW 7, Unpunished LLever, A(1); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> SX
+        @HAHA: ---> SX
+
+    #Z^NewTrial: SET X(6) = 2; OFF ^LeftOut; ON ^RightOut ---> S6
+    #Z^Shutdown: ---> S1
+
+S6,    \State 6 counts latency for the punished right lever
+    #R^RightLever: SET R(U) = X(4); ADD U; SET R(U) = -987.987;
+    ADD A(0), M(F), G(T);
+    SET B(D) = X(2), C(D) = 1; ADD D;
+    SHOW 2, Punished RLever, A(0); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> S7
+        @HAHA: ---> S7
+
+    #Z^NewTrial: SET R(U) = Z(4); ADD U; SET R(U) = -987.987;
+    SET X(6) = 1; OFF ^RightOut; ON ^LeftOut ---> S4
+    #Z^Shutdown: SET R(U) = Z(4); ADD U; SET R(U) = -987.987 ---> S1
+
+S7,    \State 7 counts lever presses for the punished right lever
+    #R^RightLever: ADD A(0), M(F), G(T);
+    SET B(D) = X(2), C(D) = 1; ADD D;
+    SHOW 2, Punished RLever, A(0); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> SX
+        @HAHA: ---> SX
+
+    #Z^NewTrial: SET X(6) = 1; OFF ^RightOut; ON ^LeftOut ---> S4
+    #Z^Shutdown: ---> S1
+
+S8,    \State 6 counts latency for the unpunished right lever
+    #R^RightLever: SET S(V) = X(4); ADD V; SET S(V) = -987.987;
+    ADD A(1), M(F), H(T);
+    SET B(D) = X(2), C(D) = 2; ADD D;
+    SHOW 7, Unpunished RLever, A(1); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> S9
+        @HAHA: ---> S9
+
+    #Z^NewTrial: SET S(V) = Z(4); ADD V; SET S(V) = -987.987;
+    SET X(6) = 1; OFF ^RightOut; ON ^LeftOut ---> S2
+    #Z^Shutdown: SET S(V) = Z(4); ADD V; SET S(V) = -987.987 ---> S1
+
+S9,    \State 7 counts lever presses for the unpunished right lever
+    #R^RightLever: ADD A(1), M(F), H(T);
+    SET B(D) = X(2), C(D) = 2; ADD D;
+    SHOW 7, Unpunished RLever, A(1); IF S.S.3 = 3 [@REWARD, @HAHA]
+        @REWARD: Z^Omnom ---> SX
+        @HAHA: ---> SX
+
+    #Z^NewTrial: SET X(6) = 1; OFF ^RightOut; ON ^LeftOut ---> S2
+    #Z^Shutdown: ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 3 - Pellet Operator
+
+S.S.3,
+S1,    \State 1 responds to the start command
+    #START: INITCONSTPROBARR Y, Z(1);
+    RANDD X(0) = Y; SET X(0) = X(0) * 1" ---> S2
+
+S2,    \State 2 counts down the interval to the reward
+    X(0)#T: SHOW 8, Next LP reinforced!, 1 ---> S3
+
+S3,    \State 2 turns on the pellet dispenser, counts reward, restarts VI clock
+    #Z^Omnom: ON ^Pellet; ADD A(2), I(T);
+    SET B(D) = X(2), C(D) = 3; ADD D;
+    SHOW 3, Pellets, A(2), 8, Pellet ITI, 0 ---> S4
+
+    #Z^NewTrial: RANDD X(0) = Y; SET X(0) = X(0) * 1" ---> S2
+    #Z^Shutdown: ---> S1
+
+S4,    \State 3 turns off the pellet dispenser
+    0.1": OFF ^Pellet; RANDD X(0) = Y; SET X(0) = X(0) * 1" ---> S2
+    #Z^Shutdown: OFF ^Pellet ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 4 - Magazine Counter
+
+S.S.4,
+S1,    \State 1 responds to the start command
+    #START: ---> S2
+
+S2,    \State 2 counts magazine entries
+    #R^Magazine: ADD J(T), E(F); IF (Z(3) = X(6)) [@PunLever, @No]
+        @PunLever: ADD A(3); SET B(D) = X(2), C(D) = 4; ADD D;
+            SHOW 4, Pun Mag Entries, A(3) ---> SX
+        @No: ADD A(5); SET B(D) = X(2), C(D) = 5; ADD D;
+            SHOW 9, Unp Mag Entries, A(5) ---> SX
+
+    #Z^Shutdown: ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 5 - Shock Operator
+
+S.S.5,
+S1,    \State 1 responds to the start command
+    #START: IF ((Z(3) > 0.9) AND (Z(3) < 1.1)) OR ((Z(3) > 1.9) AND (Z(3) < 2.1)) [@Valid, @Invalid]
+        @Valid: SHOW 5, Shocks, A(4);
+            IF (Z(3) > 0.9) AND (Z(3) < 1.1) [@LEFT, @RIGHT]
+            @LEFT: ---> S2
+            @RIGHT: ---> S3
+        @Invalid: SHOW 5, Invalid Shocked Lever, Z(3) ---> STOPKILL
+
+S2,    \State 2 responds to the left lever and issues shocks
+    #R^LeftLever: IF X(6) < 1.1 [@COUNT, @NOCOUNT]
+    @COUNT: ADD X(7), X(5); SET X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+        SHOW 15, Presses until halo, X(9);
+        SHOW 10, Presses until shock, X(8);
+
+        IF X(7) >= Z(8) [@HALO, @NAH]
+           @HALO: ON ^Halo; Z^HaloOff; ADD A(6), L(T);
+                    SET X(9) = Z(8) - X(7);
+                    SET B(D) = X(2), C(D) = 7; ADD D;
+                    SHOW 10, Halo deliveries, A(6);
+                    SHOW 15, Presses until halo, X(9);
+
+              IF X(5) >= Z(6) [@SHOCK, @FALSE]
+                    @SHOCK: ON ^Shock; Z^ShockOff; ADD A(4), K(T);
+                       SET X(5) = 0, X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+                       SET B(D) = X(2), C(D) = 6; ADD D;
+                       SHOW 5, Shocks, A(4);
+                       SHOW 10, Presses until shock, X(8);
+                       SHOW 15, Presses until halo, X(9);
+                       IF Z(10) < 1 [@Cont, @WaitShock]
+                          @Cont: SET X(7) = 0 ---> SX
+                          @WaitShock: SET X(7) = 0 - Z(6) ---> SX
+
+                    @FALSE: IF Z(10) < 1 [@Cont, @WaitShock]
+                          @Cont: SET X(7) = 0 ---> SX
+                          @WaitShock: SET X(7) = 0 - Z(6) ---> SX
+           @NAH: IF X(5) >= Z(6) [@SHOCK, @FALSE]
+                    @SHOCK: ON ^Shock; Z^ShockOff; ADD A(4), K(T);
+                       SET X(5) = 0, X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+                       SET B(D) = X(2), C(D) = 6; ADD D;
+                       SHOW 5, Shocks, A(4);
+                       SHOW 10, Presses until shock, X(8);
+                       SHOW 15, Presses until halo, X(9) ---> SX
+                    @FALSE: ---> SX
+    @NOCOUNT: ---> SX
+
+    #Z^Shutdown: ---> S1
+
+S3,    \State 3 responds to the right lever and issues shocks
+    #R^RightLever: IF X(6) > 1.9 [@COUNT, @NOCOUNT]
+        @COUNT: ADD X(7), X(5); SET X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+            SHOW 10, Presses until shock, X(8), 15, Presses until halo, X(9);
+
+            IF X(7) >= Z(8) [@HALO, @NAH]
+               @HALO: ON ^Halo; Z^HaloOff; ADD A(6), L(T);
+                    SET X(7) = 0 - Z(6),  X(9) = Z(8) - X(7);
+                    SET B(D) = X(2), C(D) = 7; ADD D;
+                    SHOW 10, Halo deliveries, A(6);
+                    SHOW 15, Presses until halo, X(9);
+
+                    IF X(5) >= Z(6) [@SHOCK, @FALSE]
+                       @SHOCK: ON ^Shock; Z^ShockOff; ADD A(4), K(T);
+                           SET X(5) = 0, X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+                           SET B(D) = X(2), C(D) = 6; ADD D;
+                           SHOW 5, Shocks, A(4);
+                           SHOW 10, Presses until shock, X(8);
+                           SHOW 15, Presses until halo, X(9);
+                           IF Z(10) < 1 [@Cont, @WaitShock]
+                              @Cont: SET X(7) = 0 ---> SX
+                              @WaitShock: SET X(7) = 0 - Z(6) ---> SX
+                       @FALSE: IF Z(10) < 1 [@Cont, @WaitShock]
+                          @Cont: SET X(7) = 0 ---> SX
+                          @WaitShock: SET X(7) = 0 - Z(6) ---> SX
+           @NAH: IF X(5) >= Z(6) [@SHOCK, @FALSE]
+                    @SHOCK: ON ^Shock; Z^ShockOff; ADD A(4), K(T);
+                       SET X(5) = 0, X(9) = Z(8) - X(7), X(8) = Z(6) - X(5);
+                       SET B(D) = X(2), C(D) = 6; ADD D;
+                       SHOW 5, Shocks, A(4);
+                       SHOW 10, Presses until shock, X(8);
+                       SHOW 15, Presses until halo, X(9) ---> SX
+                    @FALSE: ---> SX
+    @NOCOUNT: ---> SX
+
+    #Z^Shutdown: ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 6 - Millisecond clocks
+
+S.S.6,
+S1,    \Start the clock
+    #START: ---> S2
+
+S2,    \Counting, timebin shifting and new trial shifting
+    0.01": SET X(2) = X(2) + 0.01, X(3) = X(3) + 0.01;
+    SET X(4) = X(4) + 0.01;
+    IF (X(3) / 60 >= Z(0) / Z(5)) AND (T + 1 < Z(5)) [@SHIFT, @STAY]
+        @SHIFT: SET X(3) = 0; ADD T;
+            SET G(T) = 0, H(T) = 0, I(T) = 0;
+            SET J(T) = 0, K(T) = 0;
+            SET G(T+1) = -987.987, H(T+1) = -987.987;
+            SET I(T+1) = -987.987, J(T+1) = -987.987;
+            SET K(T+1) = -987.987;
+           IF X(4) >= Z(4) [@LEVER, @WAIT]
+            @LEVER: ADD F; SET E(F) = 0, M(F) = 0, X(4) = 0, X(5) = 0, X(7) = 0;
+                    Z^NewTrial ---> SX
+            @WAIT: ---> SX
+
+        @STAY:     IF X(4) >= Z(4) [@LEVER, @WAIT]
+            @LEVER: ADD F; SET E(F) = 0, M(F) = 0, X(4) = 0, X(5) = 0, X(7) = 0;
+                    Z^NewTrial ---> SX
+            @WAIT: ---> SX
+
+    #Z^Shutdown: ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 7 - Halo Operator
+\
+\S.S.7,
+\S1,    \State 1 responds to the start command
+\    #START: IF ((Z(3) > 0.9) AND (Z(3) < 1.1)) OR ((Z(3) > 1.9) AND (Z(3) < 2.1)) [@Valid, @Invalid]
+\        @Valid: SHOW 5, Shocks, A(4);
+\            IF (Z(3) > 0.9) AND (Z(3) < 1.1) [@LEFT, @RIGHT]
+\            @LEFT: ---> S2
+\            @RIGHT: ---> S3
+\        @Invalid: SHOW 5, Invalid Shocked Lever, Z(3) ---> STOPKILL
+\
+\S2,    \State 2 responds to the left lever and issues halo
+\    #R^LeftLever: IF X(6) < 1.1 [@COUNT, @NOCOUNT]
+\        @COUNT: ADD X(7); IF X(7) >= Z(8) [@HALO, @FALSE]
+\            @HALO: ON ^Halo; Z^HaloOff; ADD A(6), L(T);
+\            SET X(7) = 0, SET B(D) = X(2), C(D) = 7; ADD D;
+\            SHOW 10, Halo deliveries, A(6) ---> S4
+\            @FALSE: ---> SX
+\        @NOCOUNT: ---> SX
+\
+\    #Z^Shutdown: ---> S1
+\
+\S3,    \State 3 responds to the right lever and issues halo
+\    #R^RightLever: IF X(6) > 1.9 [@COUNT, @NOCOUNT]
+\        @COUNT: ADD X(7); IF X(7) >= Z(8) [@HALO, @FALSE]
+\            @HALO: ON ^Halo; Z^HaloOff; ADD A(6), L(T);
+\            SET X(7) = 0, SET B(D) = X(2), C(D) = 7; ADD D;
+\            SHOW 10, Halo deliveries, A(6) ---> SX
+\            @FALSE: ---> SX
+\        @NOCOUNT: ---> SX
+\
+\    #Z^Shutdown: ---> S1
+\
+\-------------------------------------------------------------------------
+\State Set 7 - Shock Off
+
+S.S.7,
+S1,   \Receives z pulse
+    #START: ---> S2
+
+S2,
+    #Z^ShockOff: ---> S3
+
+    #Z^Shutdown: ---> S1
+
+S3,    \State 3 turns off the shock
+    0.5": OFF ^Shock ---> S2
+
+    #Z^Shutdown: OFF ^Shock ---> S1
+
+\-------------------------------------------------------------------------
+\State Set 8 - Halo Off
+
+S.S.8,
+S1,
+    #START: SET Z(9) = Z(9) * 1" ---> S2
+
+S2,
+    #Z^HaloOff: ---> S3
+
+    #Z^Shutdown: ---> S4
+
+S3,
+    Z(9)#T: OFF ^Halo ---> S2
+
+    #Z^Shutdown: ---> S4
+
+S4,    \Holding state
+    Z(9)#T: OFF ^Halo ---> SX
+
+\-------------------------------------------------------------------------
+\State Set 9 - Pre-start control variable updater.
+
+S.S.9,
+S1,    \Updates the control variables every sec
+    1": SHOW 1, Session Length (min), Z(0);
+    SHOW 6, Trial Length, Z(4);
+
+    Show 2, First Lever, Z(2);
+    SHOW 3, Pun Lever (L1 R2), Z(3);
+
+    SHOW 4, Shock Ratio, Z(6);
+    SHOW 9, Variable Interval (s), Z(1);
+
+    SHOW 5, Halo Ratio, Z(8);
+    SHOW 10, Halo duration (secs), Z(9) ---> SX
+
+    #START: ---> S2
+
+S2,    \Holding State
+    #Z^Shutdown: ---> SX
+
+\-------------------------------------------------------------------------
+\Changelog:
+\(YYYY-MM-DD)
+\v2.1 (2018-05-17) - Changed SHOW locations
+\v2.2 (2018-07-02) - Added Halo Shock Reset var_alias (1 = Halo FR waits for Shock to resume)
+\                    e.g. Halo FR5 does not coincide with Shock FR10.
+\v2.3 (2019-02-17) - Added default punished lever
+\v2.4 (2021-07-03) - Fixed unpLP timestamp identity (timestamped as 1 [punLP] after first unpLP
+\                    per trial)
