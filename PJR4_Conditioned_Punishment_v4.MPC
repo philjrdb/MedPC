@@ -566,7 +566,8 @@ S9,    \State 7 is the shutdown holding state
 
 S.S.7,
 S1,    \State 1 responds to the start command, establishing schedule
-    #START: RANDD A(44) = Y; SET A(44) = (A(44) - 0.5) * 1" ---> S2
+    #START: INITCONSTPROBARR Y, A(28);
+        RANDD A(44) = Y; SET A(44) = (A(44) - 0.5) * 1" ---> S2
 
 S2,    \State 2 waits to make a pellet available
     A(44)#T: SHOW 3, Unp Pellet Available, 1 ---> S3
