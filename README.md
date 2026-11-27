@@ -34,3 +34,9 @@ Key references:
 - https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0111699
 - http://learnmem.cshlp.org/content/22/2/128.full.html
 - https://www.nature.com/articles/s41386-021-01176-2
+
+** **
+**Other:**
+
+MPC files:
+1. *MagEntry_code.MPC* (code for tracking magazine entries, duration, and latency)
