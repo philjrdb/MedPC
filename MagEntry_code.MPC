@@ -1,0 +1,49 @@
+\\ This is example code for how you can track magazine entry counts, duration, and latency in MedPC
+\ Feel free to use/adapt any aspect of this code for your specific needs.
+\ This code needs your magazines entry detector should be configured to Level settings (see 
+\ MedAssociates hardware manuals).
+
+\ To orient you to what's going on in this code:
+\ Array T indexes the CS trial. E(T) tracks magazine entries, O(T) tracks magazine duration,
+\ L(T) tracks latency to first mag entry (relative to CS start [X(3)]). 
+\ Each magazine entry/exit within the CS is logged via array B (event ID: MagEntry=5,MagExit=5.5) 
+\ and array C (time since CS onset [X(3]), using array D as an indexing variable.
+\ -987.987 is used to seal the array, as you will want a large allocation (eg. DIM=5000) to
+\ handle the largest plausible number of events that can happen.
+\ Another state set is needed to issue z-pulses for CS onset + offset, and increment T.
+
+
+\Magazine Measures
+S.S.1,
+S1,    \Wait for start command
+    #Z^CSon: ---> S2
+
+S2,    \Counts first magazine entry
+    #R^Magazine: SET B(D) = 5, C(D) = X(3); ADD D, E(T);
+        SET B(D+1) = -987.987, C(D+1) = -987.987 ---> S3
+
+    #Z^CSoff: ---> S1
+
+S3,    \Counts total magazine entry duration
+    #R^Magazine: SET O(T) = O(T) + 0.01 ---> SX
+
+    0.01": SET B(D) = 5.5, C(D) = X(3); ADD D;
+        SET B(D+1) = -987.987, C(D+1) = -987.987 ---> S4
+
+    #Z^CSoff: ---> S1
+
+S4,    \Counts other magazine entries
+    #R^Magazine: SET B(D) = 5, C(D) = X(3); ADD D, E(T);
+        SET B(D+1) = -987.987, C(D+1) = -987.987 ---> S3
+
+    #Z^CSoff: ---> S1
+
+\Centisecond timers
+S.S.2, 
+S1,    \Wait for start command
+    #Z^CSon: SET X(3) = 0 ---> S2
+
+S2,    \Increment timers by 0.01 every 0.01 seconds
+    0.01": SET X(3) = X(3) + 0.01 ---> SX
+
+    #Z^CSoff: ---> S1
